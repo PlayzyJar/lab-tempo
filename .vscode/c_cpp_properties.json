@@ -1,0 +1,27 @@
+{
+    "configurations": [
+        {
+            "name": "Pico",
+            "includePath": [
+                "${workspaceFolder}/src/ms5637_02ba03",
+                "${workspaceFolder}/**",
+                "${userHome}/.pico-sdk/sdk/2.1.1/**",
+                "${workspaceFolder}",
+                "C:/Users/erick/.pico-sdk/sdk/2.1.1/src/rp2_common/hardware_i2c/include"
+            ],
+            "forcedInclude": [
+                "${userHome}/.pico-sdk/sdk/2.1.1/src/common/pico_base_headers/include/pico.h",
+                "${workspaceFolder}/build/generated/pico_base/pico/config_autogen.h"
+            ],
+            "defines": [],
+            "compilerPath": "${userHome}/.pico-sdk/toolchain/14_2_Rel1/bin/arm-none-eabi-gcc.exe",
+            "compileCommands": [
+                "${workspaceFolder}/build/compile_commands.json"
+            ],
+            "cStandard": "c17",
+            "cppStandard": "c++14",
+            "intelliSenseMode": "linux-gcc-arm"
+        }
+    ],
+    "version": 4
+}
