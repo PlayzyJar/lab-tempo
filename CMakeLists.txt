@@ -15,9 +15,9 @@ if(WIN32)
 else()
     set(USERHOME $ENV{HOME})
 endif()
-set(sdkVersion 2.1.1)
+set(sdkVersion 2.2.0)
 set(toolchainVersion 14_2_Rel1)
-set(picotoolVersion 2.1.1)
+set(picotoolVersion 2.2.0)
 set(picoVscode ${USERHOME}/.pico-sdk/cmake/pico-vscode.cmake)
 if (EXISTS ${picoVscode})
     include(${picoVscode})
@@ -35,41 +35,39 @@ pico_sdk_init()
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(lab-tempo
-    src/ms5637_02ba03/ms5637.c
-    src/ssd1306/ssd1306.c
+add_executable(lab-tempo 
     src/main.c
-    # src/main_exemplos/Ex1_leitura.c
-    # src/main_exemplos/Ex2_barometro.c
-    # src/main_exemplos/Ex3_varBarometrica.c
-    # src/main_exemplos/Ex4_ajustepressao.c
-
-    # src/rotina_test/test_ms5637.c
-)
+    src/ms5637_02ba03/ms5637.c
+    src/sht4xl/SHT4xl-PCEIoT-Board.c 
+    src/ssd1306/ssd1306.c
+    src/io_sx1509b/io_expander.c  
+    )
 
 pico_set_program_name(lab-tempo "lab-tempo")
 pico_set_program_version(lab-tempo "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(lab-tempo 1)
+pico_enable_stdio_uart(lab-tempo 0)
 pico_enable_stdio_usb(lab-tempo 1)
 
 # Add the standard library to the build
-target_link_libraries(lab-tempo 
+target_link_libraries(lab-tempo
         pico_stdlib)
 
 # Add the standard include files to the build
 target_include_directories(lab-tempo PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
         ${CMAKE_CURRENT_LIST_DIR}/src/ms5637_02ba03
+        ${CMAKE_CURRENT_LIST_DIR}/src/sht4xl
         ${CMAKE_CURRENT_LIST_DIR}/src/ssd1306
+        ${CMAKE_CURRENT_LIST_DIR}/src/io_sx1509b
 )
 
 # Add any user requested libraries
-target_link_libraries(lab-tempo
+target_link_libraries(lab-tempo 
+        hardware_spi
         hardware_i2c
-        hardware_gpio
-        m  # Biblioteca matemática para cálculos do sensor
+        
         )
 
 pico_add_extra_outputs(lab-tempo)
